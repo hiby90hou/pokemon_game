@@ -1,4 +1,4 @@
-species_id,identifier,evolves_from_species_id,evolution_chain_id,evolution_min_level,height,weight,color_id,shape_id,habitat_id,capture_rate,growth_rate_id,base_experience
+species_id,identifier,evolves_from_species_id,evolution_chain_id,evolution_min_level,height,weight,color,shape,habitat_id,capture_rate,growth_rate_id,base_experience
 1,bulbasaur,,1,16,7,69,green,quadruped,3,45,4,64
 2,ivysaur,1,1,32,10,130,green,quadruped,3,45,4,142
 3,venusaur,2,1,16,20,1000,green,quadruped,3,45,4,236
