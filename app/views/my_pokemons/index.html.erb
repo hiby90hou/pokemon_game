@@ -1,0 +1,23 @@
+<h1>Pokemon Collection</h1>
+
+
+<table>
+	<tr>
+    <th>nickname</th>
+    <th>sepcies</th> 
+    <th>level</th>
+    <th>exp</th>
+    <th>image</th>
+  </tr>
+	<% @pokemons.each do |pokemon| %>
+		<tr>
+			<td><%= pokemon.nickname %></td>
+			<td><%= pokemon.species.identifier %></td>
+			<td><%= pokemon.level %></td>
+			<td><%= pokemon.exp %></td>
+			<td><img src=<%= pokemon.species.img_url %>></td>
+		</tr>
+	<% end %>
+		
+</table>
+

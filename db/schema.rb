@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180203030437) do
+ActiveRecord::Schema.define(version: 20180203074130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 20180203030437) do
     t.integer "rarity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "my_pokemons", force: :cascade do |t|
+    t.bigint "species_id"
+    t.string "nickname"
+    t.integer "level"
+    t.integer "exp"
+    t.string "growth_rate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["species_id"], name: "index_my_pokemons_on_species_id"
   end
 
   create_table "species", force: :cascade do |t|
@@ -56,6 +67,7 @@ ActiveRecord::Schema.define(version: 20180203030437) do
     t.index ["species_id"], name: "index_species_habitats_relationships_on_species_id"
   end
 
+  add_foreign_key "my_pokemons", "species"
   add_foreign_key "species_habitats_relationships", "habitats"
   add_foreign_key "species_habitats_relationships", "species"
 end

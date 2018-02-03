@@ -1,0 +1,47 @@
+<h1>catch new pokemon </h1>
+
+<form action="/my_pokemons" method="post">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<label>Species:</label>
+	<input type="text" name="identifier" id="box">
+	<label>nickname:</label>
+	<input type="text" name="nickname">
+	<label>level:</label>
+	<input type="text" name="level">
+	<button>Enter</button>
+</form>
+<ul class="answerContainer"></ul>
+
+<script type="text/javascript">
+	answerContainer = document.querySelector('.answerContainer');
+	box = document.querySelector('#box');
+
+	box.addEventListener("keyup",function(){
+		console.log("work")
+		var inputContent = box.value;
+		fetch('/species/show?fuzzy_search=true&identifier='+ inputContent)
+		.then(function(response) {
+			return response.text();
+		})
+		.then(function(data) {
+			var seatchResult = JSON.parse(data);
+			console.log(seatchResult);
+			answerContainer.innerHTML = '';
+			
+			seatchResult.forEach(
+				function(pokemon){
+
+					var newLi = document.createElement('li');
+
+					newLi.innerHTML = pokemon.identifier;
+
+					newLi.addEventListener('click',function(event){
+						box.value = event.target.innerHTML;
+					})
+
+					answerContainer.appendChild(newLi);
+
+				})
+		})
+})
+</script>

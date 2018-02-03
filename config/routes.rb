@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :my_pokemons
   resources :experiences, only: [:index]
   resources :species, only: [:index,:show]
   resources :habitats, only: [:index]
