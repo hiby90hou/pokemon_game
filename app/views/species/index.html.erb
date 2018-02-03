@@ -1,0 +1,59 @@
+<h1>Species</h1>
+<div class="search">
+	<input type="text" name="search" placeholder="Input a pokemon name">
+	<button>enter</button>
+</div>
+
+<div class="answerContainer"></div>
+<table>
+	<tr>
+    <th>name</th>
+    <th>height</th> 
+    <th>weight</th>
+    <th>color</th>
+    <th>shape</th>
+    <th>habitat</th>
+    <th>image</th>
+  </tr>
+<% @species.each do |species| %>
+	<tr>
+		<td><%= species.identifier %></td>
+		<td><%= species.height/10.0 %></td>
+		<td><%= species.weight/10.0 %></td>
+		<td><%= species.color %></td>
+		<td><%= species.shape %></td>
+		<td><%= species.habitats.first.identifier %></td>
+		<td><img src=<%= species.img_url %>></td>
+	</tr>
+<% end %>
+	
+</table>
+
+<script type="text/javascript">
+	document.querySelector('.search').querySelector('button').addEventListener("click",function(){
+		
+			var inputContent = document.querySelector('.search').querySelector('input').value;
+			console.log('/species/show?identifier='+ inputContent)
+			fetch('/species/show?identifier='+ inputContent)
+			.then(function(response) {
+				return response.text();
+			})
+			.then(function(data) {
+				var seatchResult = JSON.parse(data);
+				console.log(seatchResult);
+				
+				var newDiv = document.createElement('div');
+				var newImg = document.createElement('img');
+				var newP = document.createElement('p');
+
+				newImg.src = seatchResult.img_url;
+				newP.innerHTML = seatchResult.identifier;
+
+				newDiv.appendChild(newImg)
+				newDiv.appendChild(newP);
+
+				document.querySelector('.answerContainer').appendChild(newDiv);
+
+			})
+	})
+</script>
