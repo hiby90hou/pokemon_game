@@ -10,13 +10,13 @@
     <th>ready for evolute</th>
   </tr>
 	<% @pokemons.each do |pokemon| %>
-	<tr>
-		<td><%= pokemon.nickname %></td>
-		<td><%= pokemon.species.identifier %></td>
-		<td><%= pokemon.level %></td>
-		<td><%= pokemon.exp %></td>
-		<td><img src=<%= pokemon.species.img_url %>></td>
-		<td>
+	<tr class="show_list">
+		<td class="nickname"><%= pokemon.nickname %></td>
+		<td class="species"><%= pokemon.species.identifier %></td>
+		<td class="level"><%= pokemon.level %></td>
+		<td class="exp"><%= pokemon.exp %></td>
+		<td class="img_url"><img src=<%= pokemon.species.img_url %>></td>
+		<td class="ready_for_evolution">
 			<% if pokemon.ready_for_evolution %>
 			<button class="evolute" id =<%= pokemon.id %>>Evolute</button>
 			<% end %>		
@@ -48,7 +48,11 @@
 			.catch(error => console.error('Error:', error))
 			.then(response => {
 				console.log('Success:', response);
-
+				event.target.closest('.show_list').querySelector('.species').innerHTML = response['species_name'];
+				event.target.closest('.show_list').querySelector('.img_url').querySelector('img').src = response['img_url'];
+				if(response['ready_for_evolution'] != true){
+					event.target.closest('.show_list').querySelector('.ready_for_evolution').style.display="none";
+				}
 			});
 		}
 	})

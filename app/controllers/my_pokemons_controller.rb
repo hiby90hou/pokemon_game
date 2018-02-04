@@ -83,7 +83,14 @@ class MyPokemonsController < ApplicationController
 		end
 
 		@pokemon.save
-		
-		render :json => @pokemon
+
+		# @pokemon.species_name = Species.find_by(id:@pokemon.species_id).identifier
+		newSpecies = Species.find_by(id:@pokemon.species_id)
+		@result = {
+			"species_name": newSpecies.identifier,
+			"img_url": newSpecies.img_url,
+			"ready_for_evolution": @pokemon.ready_for_evolution
+		}
+		render :json => @result
 	end
 end
