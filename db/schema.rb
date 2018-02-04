@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180203074130) do
+ActiveRecord::Schema.define(version: 20180203130531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20180203074130) do
     t.string "growth_rate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "ready_for_evolution"
     t.index ["species_id"], name: "index_my_pokemons_on_species_id"
   end
 

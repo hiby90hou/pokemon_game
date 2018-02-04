@@ -1,23 +1,56 @@
 <h1>Pokemon Collection</h1>
-
-
-<table>
+<a href="/my_pokemons/new">catch new pokemon</a>
+<table class="showList">
 	<tr>
     <th>nickname</th>
     <th>sepcies</th> 
     <th>level</th>
     <th>exp</th>
     <th>image</th>
+    <th>ready for evolute</th>
   </tr>
 	<% @pokemons.each do |pokemon| %>
-		<tr>
-			<td><%= pokemon.nickname %></td>
-			<td><%= pokemon.species.identifier %></td>
-			<td><%= pokemon.level %></td>
-			<td><%= pokemon.exp %></td>
-			<td><img src=<%= pokemon.species.img_url %>></td>
-		</tr>
+	<tr>
+		<td><%= pokemon.nickname %></td>
+		<td><%= pokemon.species.identifier %></td>
+		<td><%= pokemon.level %></td>
+		<td><%= pokemon.exp %></td>
+		<td><img src=<%= pokemon.species.img_url %>></td>
+		<td>
+			<% if pokemon.ready_for_evolution %>
+			<button class="evolute" id =<%= pokemon.id %>>Evolute</button>
+			<% end %>		
+		</td>
+	</tr>
 	<% end %>
-		
 </table>
+
+<script type="text/javascript">
+	
+	document.querySelector('.showList').addEventListener('click',function(event){
+		if(event.target.className === "evolute"){
+			console.log(event.target.id)
+			var url = './my_pokemons/'+event.target.id;
+			var data = {
+
+			};
+
+			fetch(url, {
+			  method: 'PUT',
+			  body: JSON.stringify(data), 
+			  headers: new Headers({
+			    'Content-Type': 'application/json',
+        	'Accept': 'application/json',
+			    'X-Requested-With': 'XMLHttpRequest',
+			    'X-CSRF-Token': AUTH_TOKEN
+			  })
+			}).then(res => res.json())
+			.catch(error => console.error('Error:', error))
+			.then(response => {
+				console.log('Success:', response);
+
+			});
+		}
+	})
+</script>
 
